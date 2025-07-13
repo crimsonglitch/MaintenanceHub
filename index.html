@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Under Maintenance - Coming Back Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .maintenance-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .maintenance-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .maintenance-icon {
+            font-size: 80px;
+            color: #667eea;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .maintenance-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .maintenance-subtitle {
+            font-size: 1.2em;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .maintenance-description {
+            font-size: 1em;
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .countdown-container {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .countdown-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            min-width: 80px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .countdown-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.9em;
+            color: #718096;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.5s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        .progress-text {
+            font-size: 0.9em;
+            color: #4a5568;
+            margin-top: 10px;
+        }
+
+        .contact-info {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .contact-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+
+        .contact-link:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .notification-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #2d3748;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            z-index: 1000;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification-bar.show {
+            transform: translateY(0);
+        }
+
+        .subscribe-form {
+            margin-top: 30px;
+        }
+
+        .subscribe-input {
+            display: flex;
+            gap: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .subscribe-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            min-width: 200px;
+            transition: border-color 0.3s ease;
+        }
+
+        .subscribe-input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .subscribe-input button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .subscribe-input button:hover {
+            background: #5a67d8;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #48bb78;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .admin-access {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admin-access:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .admin-access i {
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .maintenance-container {
+                padding: 40px 20px;
+                margin: 20px;
+            }
+
+            .maintenance-title {
+                font-size: 2em;
+            }
+
+            .countdown {
+                gap: 10px;
+            }
+
+            .countdown-item {
+                min-width: 70px;
+                padding: 12px 15px;
+            }
+
+            .countdown-number {
+                font-size: 1.5em;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notification-bar" id="notificationBar">
+        <i class="fas fa-info-circle"></i>
+        <span id="notificationText">Follow our social media accounts for updates!</span>
+    </div>
+
+    <div class="maintenance-container">
+        <div class="maintenance-icon">
+            <i class="fas fa-tools"></i>
+        </div>
+        
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span id="statusText">System Maintenance in Progress</span>
+        </div>
+        
+        <h1 class="maintenance-title" id="mainTitle">We'll Be Right Back</h1>
+        <p class="maintenance-subtitle" id="subtitle">Working hard to improve your experience</p>
+        
+        <p class="maintenance-description" id="description">
+            We're temporarily offline for maintenance to make our site faster, more secure, 
+            and user-friendly. We'll be back shortly with exciting new features and improvements.
+        </p>
+
+        <div class="countdown-container">
+            <div class="countdown-title">
+                <i class="fas fa-clock"></i>
+                Estimated Return Time
+            </div>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text">
+            Maintenance Progress: <span id="progressText">65%</span>
+        </div>
+
+        <div class="subscribe-form">
+            <div class="countdown-title">Stay Updated</div>
+            <div class="subscribe-input">
+                <input type="email" placeholder="Enter your email address" id="emailInput">
+                <button onclick="subscribeEmail()">
+                    <i class="fas fa-bell"></i>
+                    Notify Me
+                </button>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <div class="contact-title">
+                <i class="fas fa-headset"></i>
+                Get In Touch
+            </div>
+            <div class="contact-links">
+                <a href="mailto:info@example.com" class="contact-link">
+                    <i class="fas fa-envelope"></i>
+                    Email
+                </a>
+                <a href="tel:+1234567890" class="contact-link">
+                    <i class="fas fa-phone"></i>
+                    Phone
+                </a>
+                <a href="#" class="contact-link">
+                    <i class="fab fa-twitter"></i>
+                    Twitter
+                </a>
+                <a href="#" class="contact-link">
+                    <i class="fab fa-facebook"></i>
+                    Facebook
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-access" onclick="window.location.href='admin.html'" title="Admin Panel">
+        <i class="fas fa-cog"></i>
+    </div>
+
+    <script>
+        let targetDate = new Date().getTime() + (2 * 60 * 60 * 1000); // Default 2 hours
+
+        // Load settings from localStorage
+        function loadSettings() {
+            const settings = localStorage.getItem('maintenanceSettings');
+            if (settings) {
+                const config = JSON.parse(settings);
+                targetDate = new Date(config.endTime).getTime();
+                
+                // Update content
+                document.getElementById('mainTitle').textContent = config.title || 'We\'ll Be Right Back';
+                document.getElementById('subtitle').textContent = config.subtitle || 'Working hard to improve your experience';
+                document.getElementById('description').textContent = config.description || 'We\'re temporarily offline for maintenance to make our site faster, more secure, and user-friendly. We\'ll be back shortly with exciting new features and improvements.';
+                document.getElementById('statusText').textContent = config.statusText || 'System Maintenance in Progress';
+                document.getElementById('notificationText').textContent = config.notificationText || 'Follow our social media accounts for updates!';
+                
+                // Update progress
+                const progressFill = document.getElementById('progressFill');
+                const progressText = document.getElementById('progressText');
+                progressFill.style.width = config.progress + '%';
+                progressText.textContent = config.progress + '%';
+            }
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            } else {
+                document.getElementById('countdown').innerHTML = '<p>Maintenance completed! Page is reloading...</p>';
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            }
+        }
+
+        function subscribeEmail() {
+            const emailInput = document.getElementById('emailInput');
+            const email = emailInput.value.trim();
+            
+            if (email && email.includes('@')) {
+                emailInput.value = '';
+                emailInput.placeholder = 'Thank you! You will be notified.';
+                emailInput.style.borderColor = '#48bb78';
+                
+                setTimeout(() => {
+                    emailInput.placeholder = 'Enter your email address';
+                    emailInput.style.borderColor = '#e2e8f0';
+                }, 3000);
+            } else {
+                emailInput.style.borderColor = '#e53e3e';
+                emailInput.placeholder = 'Please enter a valid email';
+                
+                setTimeout(() => {
+                    emailInput.placeholder = 'Enter your email address';
+                    emailInput.style.borderColor = '#e2e8f0';
+                }, 3000);
+            }
+        }
+
+        function showNotification() {
+            const notificationBar = document.getElementById('notificationBar');
+            notificationBar.classList.add('show');
+            
+            setTimeout(() => {
+                notificationBar.classList.remove('show');
+            }, 5000);
+        }
+
+        // Page load events
+        window.onload = function() {
+            loadSettings();
+            updateCountdown();
+            
+            // Update countdown every second
+            setInterval(updateCountdown, 1000);
+            
+            // Show notification after 2 seconds
+            setTimeout(showNotification, 2000);
+        };
+
+        // Enter key for email subscription
+        document.getElementById('emailInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                subscribeEmail();
+            }
+        });
+    </script>
+</body>
+</html>
